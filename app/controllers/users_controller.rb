@@ -24,10 +24,13 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+    @user = User.new( {:name => user_params[:name], :email =>user_params[:email]})
+    @mailer = {:name => user_params[:name], :email =>user_params[:email],:Message => user_params[:Message]}
+    
 
     respond_to do |format|
       if @user.save
+        UserMailer.welcome_email(@mailer).deliver_later
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -69,6 +72,8 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email)
+      puts "parameters are"
+      puts params
+      params.permit(:name, :email,:Message)
     end
 end

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>You have got a mail from <%= @user[:name] %></h1>
+    <p>
+      <%=@user[:Message]%>
+    </p>
+    <p> To get back to them <a href="mailto:<%=@user[:email]%>">click here!</a>
+  </body>
+</html>
